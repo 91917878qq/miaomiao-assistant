@@ -1,5 +1,5 @@
 version: 2.10.0
-apkFileName: 喵喵助手2.3.3.apk
+apkFileName: 喵喵助手3.0.0.apk
 isFrameworkApk: false
 usesFramework:
   ids:
