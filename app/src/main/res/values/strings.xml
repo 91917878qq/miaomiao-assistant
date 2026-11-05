@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">喵喵助手</string>
+    <string name="channel_name">喵喵助手服务</string>
+    <string name="channel_description">喵喵助手后台运行通知</string>
+    <string name="accessibility_description">喵喵助手无障碍服务，用于在指定应用中自动改写文本。</string>
+    <string name="accessibility_settings_title">无障碍设置</string>
+    <string name="overlay_service_title">喵喵助手悬浮窗</string>
+    <string name="overlay_service_text">手动处理运行中</string>
+    <string name="service_running">喵喵助手运行中</string>
+</resources>

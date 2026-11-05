@@ -1,14 +1,27 @@
-# 签名密钥（严禁入库）
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+
+# 签名与密钥（严禁入库）
 keystore.properties
-miao-release.keystore
 *.keystore
 keystore/
 
-# 逆向材料与参考安装包（本地保留，不入库）
-喵喵助手_逆向.zip
-喵喵助手2.3.*.apk
-# �����������⣩
-MiaoMiaoAssistant/build/
-**/build/
+# 构建产物
+*.apk
+*.aab
 *.idsig
 *.apk.idsig
+
+# 日志与缓存
+*.log
+.DS_Store
