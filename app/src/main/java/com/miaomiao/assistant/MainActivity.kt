@@ -1,6 +1,7 @@
 package com.miaomiao.assistant
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.core.content.pm.PackageInfoCompat
 import com.kyant.backdrop.backdrops.rememberCanvasBackdrop
 import com.kyant.backdrop.drawBackdrop
 import com.kyant.backdrop.effects.lens
@@ -31,6 +33,20 @@ class MainActivity : ComponentActivity() {
     private var serviceEnabled by mutableStateOf(false)
     private var overlayEnabled by mutableStateOf(false)
     private var firstLaunch by mutableStateOf(true)
+
+    private data class AppVersion(val name: String, val code: Long)
+
+    private val appVersion: AppVersion by lazy {
+        try {
+            val info = applicationContext.packageManager.getPackageInfo(packageName, 0)
+            AppVersion(
+                name = info.versionName ?: "未知",
+                code = PackageInfoCompat.getLongVersionCode(info)
+            )
+        } catch (_: PackageManager.NameNotFoundException) {
+            AppVersion(name = "未知", code = 0L)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -258,7 +274,7 @@ class MainActivity : ComponentActivity() {
     private fun AboutTab() {
         Text("关于", style = MaterialTheme.typography.headlineMedium)
         GlassCard("关于本应用") {
-            Text("喵喵助手 3.0.0 · 91917878qq", style = MaterialTheme.typography.titleMedium)
+            Text("喵喵助手 ${appVersion.name} · 91917878qq", style = MaterialTheme.typography.titleMedium)
             Text("开发者：91917878qq", style = MaterialTheme.typography.bodySmall)
             Text("反馈邮箱：1490964435@qq.com", style = MaterialTheme.typography.bodySmall)
             Text("赞助支持：给作者添点动力", style = MaterialTheme.typography.bodySmall)
@@ -290,7 +306,7 @@ class MainActivity : ComponentActivity() {
             appendLine("无障碍服务：${if (MiaoAccessibilityService.isRunning) "正常" else "未开启或已异常关闭"}")
             appendLine("悬浮窗权限：${if (overlayOk) "正常" else "未开启"}")
             appendLine("已选应用：${Settings.selectedApps().size} 个")
-            appendLine("版本：3.0.0 (51)")
+            appendLine("版本：${appVersion.name} (${appVersion.code})")
         }
         android.app.AlertDialog.Builder(this)
             .setTitle("检测结果")
